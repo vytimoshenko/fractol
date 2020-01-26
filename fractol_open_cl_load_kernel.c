@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 23:26:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/26 01:13:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/26 19:07:22 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		load_open_cl_kernel(t_open_cl *open_cl)
 	cl_int	err_code;
 
 	err_code = 1;
+	read_open_cl_kernel(open_cl);
 	if (!(open_cl->program = clCreateProgramWithSource(open_cl->context, 1,
 	(const char **)&(open_cl->source_str),
 	(const size_t *)&(open_cl->source_size), &err_code)))
@@ -47,10 +48,4 @@ void		load_open_cl_kernel(t_open_cl *open_cl)
 	if (!(open_cl->kernel = clCreateKernel(open_cl->program, KERNEL_NAME,
 	&err_code)))
 		put_open_cl_error("clCreateKernel error", err_code);
-}
-
-void		get_open_cl_kernel(t_open_cl *open_cl)
-{
-    read_open_cl_kernel(open_cl);
-    load_open_cl_kernel(open_cl);
 }

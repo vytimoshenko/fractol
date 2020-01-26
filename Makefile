@@ -6,24 +6,25 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/01/26 02:27:56 by mperseus         ###   ########.fr        #
+#    Updated: 2020/01/26 20:58:20 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 	open_cl
+NAME	= 	fractol
 
-HDR		= 	open_cl.h
+HDR		= 	fractol.h
 
 SRC		= 	fractol_main.c					\
-			fractol_mlx_init.c				\
-			fractol_mlx_hooks.c				\
-			fractol_open_cl_init.c			\
+			fractol_global_init.c			\
+			fractol_check_arg.c				\
 			fractol_open_cl_get_info.c		\
-			fractol_open_cl_get_kernel.c	\
+			fractol_open_cl_load_kernel.c	\
+			fractol_draw.c					\
+			fractol_control.c				\
+			fractol_mlx_hooks.c				\
 			fractol_open_cl_run.c			\
 			fractol_open_cl_err_1.c			\
 			fractol_open_cl_err_2.c			\
-			fractol_draw.c					\
 			fractol_put_info_1.c			\
 			fractol_put_info_3.c
 		
