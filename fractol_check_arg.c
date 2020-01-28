@@ -1,16 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_status_init.c                              :+:      :+:    :+:   */
+/*   fractol_check_arg.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/26 19:12:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 03:24:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+// void		assign_fractal(t_status *status)
+// {
+// 	status->iter_max = 20;
+// 	status->x_min = -2.5;
+// 	status->x_max = 2.4;
+// 	status->y_min = -1.5;
+// 	status->y_max = 1.5;
+// 	status->c_re = -0.70176;
+//     status->c_im = -0.3842;
+// 	status->y_start = 0;
+// 	status->y_end = IMG_SIZE_Y;
+// 	// if (status->fractal_type == 3)
+// 	// {
+// 	// 	status->c_re = 1.17462;
+//     // 	status->c_im = 0.427525;
+// 	// }
+// 	status->zoom = 1;
+// }
+
+void		assign_fractal(t_status *status)
+{
+	status->fractal_type = 1;
+	status->color_theme = 0;
+	status->iter = 40;
+	status->zoom = 150;
+	status->dy = 0;
+	status->dx = 0;
+	status->ms_y = 0;
+	status->ms_x = 0;
+	status->pause = 1;
+	status->m_y = (double)IMG_SIZE_X / 2;
+	status->m_x = (double)IMG_SIZE_X / 2;
+}
 
 int			check_argument(char *arg)
 {
@@ -21,8 +55,10 @@ int			check_argument(char *arg)
 			fractal_type = 1;
 	else if (!(ft_strcmp(arg, (char *)"julia")))
 			fractal_type = 2;
-	// else if (!(ft_strcmp(arg, (char *)"sin")))
+	// else if (!(ft_strcmp(arg, (char *)"spider")))
 	// 		flag = 3;
+	// else if (!(ft_strcmp(arg, (char *)"sin")))
+	// 		flag = 4;
 	return (fractal_type);
 }
 

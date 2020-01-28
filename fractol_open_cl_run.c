@@ -6,22 +6,40 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:12:19 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/26 01:15:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 02:52:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	set_arg_open_cl_kernel(t_open_cl *open_cl)
+void	run_open_cl(t_global *global)
+{
+	set_arg_open_cl_kernel(global->status, global->open_cl);
+	execute_open_cl_kernel(global->open_cl);
+	get_open_cl_result(global->open_cl, global->mlx);
+}
+
+void	set_arg_open_cl_kernel(t_status *status, t_open_cl *open_cl)
 {
 	cl_int	err_code;
 
 	if (!(open_cl->buf = clCreateBuffer(open_cl->context, CL_MEM_WRITE_ONLY,
 	open_cl->global_work_size * sizeof(int), NULL, &err_code)))
-		put_open_cl_error("clCreateBuffer error", err_code);
+		put_open_cl_error(open_cl, "clCreateBuffer error", err_code);
 	if ((err_code = clSetKernelArg(open_cl->kernel, 0, sizeof(cl_mem),
-	(void *)&(open_cl->buf))))
-		put_open_cl_error("clSetKernelArg error", err_code);
+	&(open_cl->buf))))
+		put_open_cl_error(open_cl, "clSetKernelArg error", err_code);
+
+	err_code |= clSetKernelArg(open_cl->kernel, 1, sizeof(double), &(status->m_x));
+	err_code |= clSetKernelArg(open_cl->kernel, 2, sizeof(double), &(status->m_y));
+	err_code |= clSetKernelArg(open_cl->kernel, 3, sizeof(double), &(status->zoom));
+	err_code |= clSetKernelArg(open_cl->kernel, 4, sizeof(double), &(status->dx));
+	err_code |= clSetKernelArg(open_cl->kernel, 5, sizeof(double), &(status->dy));
+	err_code |= clSetKernelArg(open_cl->kernel, 6, sizeof(int), &(status->iter));
+	err_code |= clSetKernelArg(open_cl->kernel, 7, sizeof(int), &(status->fractal_type));
+	err_code |= clSetKernelArg(open_cl->kernel, 8, sizeof(double), &(status->ms_x));
+	err_code |= clSetKernelArg(open_cl->kernel, 9, sizeof(double), &(status->ms_y));
+	err_code |= clSetKernelArg(open_cl->kernel, 10, sizeof(double), &(status->color_theme));
 }
 
 void	execute_open_cl_kernel(t_open_cl *open_cl)
@@ -31,46 +49,15 @@ void	execute_open_cl_kernel(t_open_cl *open_cl)
 	if ((err_code = clEnqueueNDRangeKernel(open_cl->command_queue,
 	open_cl->kernel, 1, NULL, &(open_cl->global_work_size),
 	&(open_cl->local_work_size), 0, NULL, NULL)))
-		put_open_cl_error("clEnqueueNDRangeKernel error", err_code);
+		put_open_cl_error(open_cl, "clEnqueueNDRangeKernel error", err_code);
 }
 
-void	get_open_cl_result(t_open_cl *open_cl)
+void	get_open_cl_result(t_open_cl *open_cl, t_mlx *mlx)
 {
 	cl_int	err_code;
 
-	int *res = (int *)malloc(sizeof(int) * open_cl->global_work_size);
 	if ((err_code = clEnqueueReadBuffer(open_cl->command_queue, open_cl->buf,
-	CL_TRUE, 0, open_cl->global_work_size * sizeof(int), res, 0, NULL, NULL)))
-		put_open_cl_error("clEnqueueReadBuffer error", err_code);
-	int i = open_cl->global_work_size;
-	while (i-- > 0)
-		printf("%d\n", res[i]);
-}
-
-void	clean_open_cl(t_open_cl *open_cl)
-{
-	cl_int	err_code;
-
-	if ((err_code = clFlush(open_cl->command_queue)))
-		put_open_cl_error("clFlush error", err_code);
-	if ((err_code = clFinish(open_cl->command_queue)))
-		put_open_cl_error("clFinish error", err_code);
-	if ((err_code = clReleaseKernel(open_cl->kernel)))
-		put_open_cl_error("clReleaseKernel error", err_code);
-	if ((err_code = clReleaseProgram(open_cl->program)))
-		put_open_cl_error("clReleaseProgram error", err_code);
-	if ((err_code = clReleaseMemObject(open_cl->buf)))
-		put_open_cl_error("clReleaseMemObject error", err_code);
-	if ((err_code = clReleaseCommandQueue(open_cl->command_queue)))
-		put_open_cl_error("clReleaseCommandQueue error", err_code);
-	if ((err_code = clReleaseContext(open_cl->context)))
-		put_open_cl_error("clReleaseContext error", err_code);
-}
-
-void	run_open_cl(t_open_cl *open_cl)
-{
-	set_arg_open_cl_kernel(open_cl);
-	execute_open_cl_kernel(open_cl);
-	get_open_cl_result(open_cl);
-	clean_open_cl(open_cl);
+	CL_TRUE, 0, open_cl->global_work_size * sizeof(int), mlx->data, 0, NULL,
+	NULL)))
+		put_open_cl_error(open_cl, "clEnqueueReadBuffer error", err_code);
 }

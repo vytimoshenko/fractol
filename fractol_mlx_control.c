@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_control.c                                  :+:      :+:    :+:   */
+/*   fractol_mlx_control.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/26 22:40:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 03:36:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	get_cursor_position(t_status *status, int x, int y)
+void	get_mouse_position(t_status *status, int x, int y)
 {
 	status->x_mouse_position = x;
 	status->y_mouse_position = y;
@@ -50,18 +50,34 @@ void	get_cursor_position(t_status *status, int x, int y)
 // 	}
 // }
 
-// void	control_rotation(t_status *status, int key)
-// {
-// 	if (key == ARROW_DOWN && rad_to_deg(status->x_angle) < 180)
-// 		status->x_angle += deg_to_rad(5);
-// 	if (key == ARROW_UP && rad_to_deg(status->x_angle) > -180)
-// 		status->x_angle -= deg_to_rad(5);
-// 	if (key == ARROW_RIGHT && rad_to_deg(status->y_angle) < 180)
-// 		status->y_angle += deg_to_rad(5);
-// 	if (key == ARROW_LEFT && rad_to_deg(status->y_angle) > -180)
-// 		status->y_angle -= deg_to_rad(5);
-// 	if (key == CHEVRON_RIGHT && rad_to_deg(status->z_angle) < 180)
-// 		status->z_angle += deg_to_rad(5);
-// 	if (key == CHEVRON_LEFT && rad_to_deg(status->z_angle) > -180)
-// 		status->z_angle -= deg_to_rad(5);
-// }
+void	control_shift(t_status *status, int key)
+{
+	if (key == ARROW_DOWN)
+		status->c_im += 0.1;
+	if (key == ARROW_UP)
+		status->c_im -= 0.1;
+	if (key == ARROW_RIGHT)
+		status->c_re += 0.1;
+	if (key == ARROW_LEFT)
+		status->c_re -= 0.1;
+	if (key == CHEVRON_RIGHT)
+		status->iter += 10;
+	if (key == CHEVRON_LEFT)
+		status->iter -= 10;
+}
+
+void	control_zoom(t_status *status, int key)
+{
+	if (key == MOUSE_SCROLL_UP || key == PLUS)
+		status->zoom *= 1.1;
+	if (key == MOUSE_SCROLL_DOWN || key == MINUS)
+		status->zoom /= 1.1;
+}
+
+void	control_colors(t_status *status)
+{
+	if (status->color_theme != 3)
+		status->color_theme++;
+	else
+		status->color_theme = 0;
+}
