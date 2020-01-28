@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:12:19 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 02:52:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 21:54:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	run_open_cl(t_global *global)
 
 void	set_arg_open_cl_kernel(t_status *status, t_open_cl *open_cl)
 {
-	cl_int	err_code;
+	cl_int			err_code;
+	t_kernel_arg	kernel_arg;
 
 	if (!(open_cl->buf = clCreateBuffer(open_cl->context, CL_MEM_WRITE_ONLY,
 	open_cl->global_work_size * sizeof(int), NULL, &err_code)))
@@ -29,17 +30,24 @@ void	set_arg_open_cl_kernel(t_status *status, t_open_cl *open_cl)
 	if ((err_code = clSetKernelArg(open_cl->kernel, 0, sizeof(cl_mem),
 	&(open_cl->buf))))
 		put_open_cl_error(open_cl, "clSetKernelArg error", err_code);
+	pack_arg_to_struct(status, &kernel_arg);
+	if ((err_code = clSetKernelArg(open_cl->kernel, 1, sizeof(kernel_arg),
+	&kernel_arg)))
+		put_open_cl_error(open_cl, "clSetKernelArg error", err_code);
+}
 
-	err_code |= clSetKernelArg(open_cl->kernel, 1, sizeof(double), &(status->m_x));
-	err_code |= clSetKernelArg(open_cl->kernel, 2, sizeof(double), &(status->m_y));
-	err_code |= clSetKernelArg(open_cl->kernel, 3, sizeof(double), &(status->zoom));
-	err_code |= clSetKernelArg(open_cl->kernel, 4, sizeof(double), &(status->dx));
-	err_code |= clSetKernelArg(open_cl->kernel, 5, sizeof(double), &(status->dy));
-	err_code |= clSetKernelArg(open_cl->kernel, 6, sizeof(int), &(status->iter));
-	err_code |= clSetKernelArg(open_cl->kernel, 7, sizeof(int), &(status->fractal_type));
-	err_code |= clSetKernelArg(open_cl->kernel, 8, sizeof(double), &(status->ms_x));
-	err_code |= clSetKernelArg(open_cl->kernel, 9, sizeof(double), &(status->ms_y));
-	err_code |= clSetKernelArg(open_cl->kernel, 10, sizeof(double), &(status->color_theme));
+void	pack_arg_to_struct(t_status *status, t_kernel_arg *kernel_arg)
+{
+	kernel_arg->m_x = status->m_x;
+	kernel_arg->m_y = status->m_y;
+	kernel_arg->zoom = status->zoom;
+	kernel_arg->dx = status->dx;
+	kernel_arg->dy = status->dy;
+	kernel_arg->iter = status->iter;
+	kernel_arg->type = status->fractal_type;
+	kernel_arg->ms_x = status->ms_x;
+	kernel_arg->ms_x = status->ms_y;
+	kernel_arg->color = status->color_theme;
 }
 
 void	execute_open_cl_kernel(t_open_cl *open_cl)

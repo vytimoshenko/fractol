@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:24 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 00:36:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 21:06:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	put_open_cl_error(t_open_cl *open_cl, char *str, cl_int err_code)
 	ft_putstr(str);
 	ft_putstr(": ");
 	ft_putendl(open_cl_error_interpret(err_code));
+	get_program_build_log(open_cl);
 	clean_open_cl(open_cl);
 	exit(1);
 }

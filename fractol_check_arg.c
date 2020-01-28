@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 03:24:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 21:55:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 void		assign_fractal(t_status *status)
 {
-	status->fractal_type = 1;
 	status->color_theme = 0;
 	status->iter = 40;
 	status->zoom = 150;
@@ -52,19 +51,19 @@ int			check_argument(char *arg)
 
 	fractal_type = 0;
 	if (!(ft_strcmp(arg, (char *)"mandelbrot")))
-			fractal_type = 1;
+		fractal_type = 1;
 	else if (!(ft_strcmp(arg, (char *)"julia")))
-			fractal_type = 2;
-	// else if (!(ft_strcmp(arg, (char *)"spider")))
-	// 		flag = 3;
-	// else if (!(ft_strcmp(arg, (char *)"sin")))
-	// 		flag = 4;
+		fractal_type = 2;
+	else if (!(ft_strcmp(arg, (char *)"spider")))
+		fractal_type = 3;
+	else if (!(ft_strcmp(arg, (char *)"sin")))
+		fractal_type = 4;
 	return (fractal_type);
 }
 
 void		error_wrong_argument(void)
 {
-	ft_putendl("usage: fractol mandelbrot / julia");
-	ft_putendl("example: fractol mandelbrot");
+	ft_putendl("usage: fractol mandelbrot / julia / spider / sin");
+	ft_putendl("example: fractol spider");
 	exit(1);
 }

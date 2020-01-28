@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 16:08:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 01:40:01 by mperseus         ###   ########.fr       */
+/*   Created: 2020/01/25 23:26:21 by mperseus          #+#    #+#             */
+/*   Updated: 2020/01/28 17:49:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,68 +31,47 @@ t_open_cl	*init_open_cl(void)
 	if (!(open_cl->command_queue = clCreateCommandQueue(open_cl->context,
 	open_cl->device_id, 0, &err_code)))
 		put_open_cl_error(open_cl, "clCreateCommandQueue error", err_code);
-	get_open_cl_info(open_cl);
 	load_open_cl_kernel(open_cl);
+	get_open_cl_info(open_cl);
 	open_cl->global_work_size = IMG_SIZE_X * IMG_SIZE_Y;
 	open_cl->local_work_size = LOCAL_WORK_SIZE;
 	return (open_cl);
 }
 
-void	get_open_cl_info(t_open_cl *open_cl)
+void		read_open_cl_kernel(t_open_cl *open_cl)
 {
-	get_device_info_1(open_cl);
-	get_device_info_2(open_cl);
-	get_platform_info(open_cl);
+	int		fd;
+
+	if ((fd = open(SOURCE_NAME, O_RDONLY)) < 0)
+		ft_put_errno(PROGRAM_NAME);
+	if ((read(fd, NULL, 0)) == -1)
+		ft_put_errno(PROGRAM_NAME);
+	if (!(open_cl->source_str = (char *)ft_memalloc(sizeof(char)
+	* (MAX_SOURCE_SIZE + 1))))
+		ft_put_errno(PROGRAM_NAME);
+	if ((open_cl->source_size = read(fd, open_cl->source_str,
+	MAX_SOURCE_SIZE)) <= 0)
+		put_error_pn("OpenCL source file reading error");
+	if (read(fd, open_cl->source_str, MAX_SOURCE_SIZE))
+		put_error_pn("max OpenCL source file size exceed");
+	close(fd);
 }
 
-void	get_platform_info(t_open_cl *open_cl)
-{
-	size_t	info_size;
-	cl_int	err_code;
-
-	if ((err_code = clGetPlatformInfo(open_cl->platform_id, CL_PLATFORM_NAME,
-	0, NULL, &info_size)))
-		put_open_cl_error(open_cl, "clGetPlatformInfo error", err_code);
-	if (!(open_cl->platform_name = (char *)malloc(info_size)))
-		ft_put_errno(PROGRAM_NAME);
-	if ((err_code = clGetPlatformInfo(open_cl->platform_id, CL_PLATFORM_NAME,
-	info_size, open_cl->platform_name, NULL)))
-		put_open_cl_error(open_cl, "clGetPlatformInfo error", err_code);
-}
-
-void	get_device_info_1(t_open_cl *open_cl)
-{
-	size_t	info_size;
-	cl_int	err_code;
-
-	if ((err_code = clGetDeviceInfo(open_cl->device_id, CL_DEVICE_NAME,
-	0, NULL, &info_size)))
-		put_open_cl_error(open_cl, "clGetDeviceInfo error", err_code);
-	if (!(open_cl->device_name = (char *)malloc(info_size)))
-		ft_put_errno(PROGRAM_NAME);
-	if ((err_code = clGetDeviceInfo(open_cl->device_id, CL_DEVICE_NAME,
-	info_size, open_cl->device_name, NULL)))
-		put_open_cl_error(open_cl, "clGetDeviceInfo error", err_code);
-	if ((err_code = clGetDeviceInfo(open_cl->device_id, CL_DRIVER_VERSION,
-	0, NULL, &info_size)))
-		put_open_cl_error(open_cl, "clGetDeviceInfo error", err_code);
-	if (!(open_cl->driver_ver = (char *)ft_memalloc(info_size)))
-		ft_put_errno(PROGRAM_NAME);
-	if ((err_code = clGetDeviceInfo(open_cl->device_id, CL_DRIVER_VERSION,
-	info_size, open_cl->driver_ver, NULL)))
-		put_open_cl_error(open_cl, "clGetDeviceInfo error", err_code);
-	if ((err_code = clGetDeviceInfo(open_cl->device_id,
-	CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(open_cl->device_comp_units),
-	&(open_cl->device_comp_units), NULL)))
-		put_open_cl_error(open_cl, "clGetDeviceInfo error", err_code);
-}
-
-void	get_device_info_2(t_open_cl *open_cl)
+void		load_open_cl_kernel(t_open_cl *open_cl)
 {
 	cl_int	err_code;
 
-	if ((err_code = clGetDeviceInfo(open_cl->device_id,
-	CL_DEVICE_MAX_CLOCK_FREQUENCY, sizeof(open_cl->device_frequency),
-	&(open_cl->device_frequency), NULL)))
-		put_open_cl_error(open_cl, "clGetDeviceInfo error", err_code);
+	err_code = 1;
+	read_open_cl_kernel(open_cl);
+	if (!(open_cl->program = clCreateProgramWithSource(open_cl->context, 1,
+	(const char **)&(open_cl->source_str),
+	(const size_t *)&(open_cl->source_size), &err_code)))
+		put_open_cl_error(open_cl, "clCreateProgramWithSource error", err_code);
+	free(open_cl->source_str);
+	if ((err_code = clBuildProgram(open_cl->program, 1, &(open_cl->device_id),
+	NULL, NULL, NULL)))
+		put_open_cl_error(open_cl, "clBuildProgram error", err_code);
+	if (!(open_cl->kernel = clCreateKernel(open_cl->program, KERNEL_NAME,
+	&err_code)))
+		put_open_cl_error(open_cl, "clCreateKernel error", err_code);
 }

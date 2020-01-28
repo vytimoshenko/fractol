@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 03:48:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:04:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define TEXT_COLOR  			0xFFFFFF
 # define BACK_COLOR  			0x555555
 
-# define SOURCE_NAME			"test.cl"
-# define KERNEL_NAME			"draw"
+# define SOURCE_NAME			"fractol.cl"
+# define KERNEL_NAME			"fractal"
 # define MAX_SOURCE_SIZE		8192
 
 # define DEVICE					CL_DEVICE_TYPE_GPU
@@ -84,6 +84,7 @@ typedef struct			s_open_cl
 
 	size_t				source_size;
 	char				*source_str;
+	char				*program_build_log;
 
 	size_t				global_work_size;
 	size_t				local_work_size;
@@ -97,13 +98,13 @@ typedef struct			s_status
 	char				*fractal_name;
 
 	int					*data;
-	
+
 	double				zoom;
 	float				zoom_init;
-	double					color_theme;
+	double				color_theme;
 
 	int					iter;
-	
+
 	int					y_start;
 	int					y_end;
 
@@ -112,8 +113,8 @@ typedef struct			s_status
 	float				re2;
 	float				im2;
 	float				c_re;
-    float				c_im;
-	
+	float				c_im;
+
 	float				d_re;
 	float				d_im;
 	float				x_min;
@@ -131,11 +132,11 @@ typedef struct			s_status
 	// int				middle_mouse_button;
 
 	double				dy;
-	double 				dx;
-	double 				ms_y;
-	double 				ms_x;
-	int 				pause;
-	double 				m_y;
+	double				dx;
+	double				ms_y;
+	double				ms_x;
+	int					pause;
+	double				m_y;
 	double				m_x;
 
 }						t_status;
@@ -146,6 +147,20 @@ typedef struct			s_global
 	t_mlx				*mlx;
 	t_open_cl			*open_cl;
 }						t_global;
+
+typedef struct			s_kernel_arg
+{
+	double				m_x;
+	double				m_y;
+	double				zoom;
+	double				dx;
+	double				dy;
+	int					iter;
+	int					type;
+	double				ms_x;
+	double				ms_y;
+	double				color;
+}						t_kernel_arg;
 
 int						main(int argc, char **argv);
 
@@ -171,18 +186,6 @@ void					control_shift(t_status *status, int key);
 void					control_zoom(t_status *status, int key);
 void					control_colors(t_status *status);
 
-
-
-int						set_colors(unsigned char o, unsigned char r, \
-						unsigned char g, unsigned char b);
-int 					get_color(int i, int iter_max, int color_theme);
-
-void					mandelbrot_start(t_status *status, int x);
-int						iterator(t_status *status);
-void					mandelbrot(t_status *status);
-
-
-
 void					put_info_to_window(t_global *global);
 void					put_control_keys(t_mlx *mlx);
 void					put_open_cl_info_1(t_open_cl *open_cl, t_mlx *mlx);
@@ -193,16 +196,20 @@ void					put_status_2(t_status *status, t_mlx *mlx);
 void					put_status_3(t_status *status, t_mlx *mlx);
 
 t_open_cl				*init_open_cl(void);
+void					read_open_cl_kernel(t_open_cl *open_cl);
+void					load_open_cl_kernel(t_open_cl *open_cl);
+
 void					get_open_cl_info(t_open_cl *open_cl);
 void					get_device_info_1(t_open_cl *open_cl);
 void					get_device_info_2(t_open_cl *open_cl);
 void					get_platform_info(t_open_cl *open_cl);
-
-void					read_open_cl_kernel(t_open_cl *open_cl);
-void					load_open_cl_kernel(t_open_cl *open_cl);
+void					get_program_build_log(t_open_cl *open_cl);
 
 void					run_open_cl(t_global *global);
-void					set_arg_open_cl_kernel(t_status *status, t_open_cl *open_cl);
+void					set_arg_open_cl_kernel(t_status *status,
+						t_open_cl *open_cl);
+void					pack_arg_to_struct(t_status *status,
+						t_kernel_arg *kernel_arg);
 void					execute_open_cl_kernel(t_open_cl *open_cl);
 void					get_open_cl_result(t_open_cl *open_cl, t_mlx *mlx);
 

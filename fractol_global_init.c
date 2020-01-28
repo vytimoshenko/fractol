@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:14:26 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 03:04:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/28 21:08:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_status	*init_status(int argc, char **argv)
 		error_wrong_argument();
 	if (!(status = (t_status *)ft_memalloc(sizeof(t_status))))
 		ft_put_errno(PROGRAM_NAME);
-	// status->fractal_type = check_argument(argv[1]);
+	status->fractal_type = check_argument(argv[1]);
 	if (!(status->fractal_name = ft_strdup((const char *)argv[1])))
 		ft_put_errno(PROGRAM_NAME);
 	assign_fractal(status);
