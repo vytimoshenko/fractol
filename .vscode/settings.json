@@ -3,6 +3,27 @@
         "fractol.h": "c",
         "fdf.h": "c",
         "algorithm": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "__config": "c",
+        "__hash_table": "c",
+        "__threading_support": "c",
+        "array": "c",
+        "functional": "c",
+        "string_view": "c",
+        "iomanip": "c",
+        "ios": "c",
+        "iterator": "c",
+        "locale": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "string": "c",
+        "type_traits": "c",
+        "vector": "c",
+        "*.tcc": "c",
+        "bitset": "c",
+        "exception": "c",
+        "istream": "c",
+        "limits": "c",
+        "streambuf": "c"
     }
 }

@@ -6,11 +6,50 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 03:36:25 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/30 03:14:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	control_iteration(t_status *status, int key)
+{
+	if (key == CHEVRON_RIGHT && status->iter < 100)
+		status->iter += 10;
+	else if (key == CHEVRON_LEFT && status->iter > 10)
+		status->iter -= 10;
+}
+
+void	control_zoom(t_status *status, int key)
+{
+	if (key == PLUS)
+		status->zoom *= 1.25;
+	else if (key == MINUS)
+		status->zoom /= 1.25;
+}
+
+// void	control_mouse_zoom(t_status *status, int x, int y, int key)
+// {
+// 	double	tmp;
+	
+// 	tmp = status->zoom;
+// 	if (key == MOUSE_SCROLL_UP)
+// 		status->zoom *= 1.25;
+// 	else if (key == MOUSE_SCROLL_DOWN)
+// 		status->zoom /= 1.25;
+// 	if (tmp < status->zoom)
+// 	{
+// 		status->x_shift -= (status->m_x - x) * 1.25 / status->zoom;
+// 		status->y_shift -= (status->m_y - y) * 1.25 / status->zoom;
+// 	}
+// 	else
+// 	{
+// 		status->x_shift -= (status->m_x - x) / 1.25 / status->zoom;
+// 		status->y_shift -= (status->m_y - y) / 1.25 / status->zoom;
+// 	}
+// 	status->m_x = x;
+// 	status->m_y = y;
+// }
 
 void	get_mouse_position(t_status *status, int x, int y)
 {
@@ -23,55 +62,40 @@ void	get_mouse_position(t_status *status, int x, int y)
 	}
 }
 
-// void	control_shift(t_status *status, int key)
-// {
-// 	if (key == A && status->x_shift >= -IMG_SIZE_X / 2)
-// 		status->x_shift -= 0.1 * IMG_SIZE_X;
-// 	if (key == D && status->x_shift <= IMG_SIZE_X / 2)
-// 		status->x_shift += 0.1 * IMG_SIZE_X;
-// 	if (key == W && status->y_shift >= -IMG_SIZE_Y / 2)
-// 		status->y_shift -= 0.1 * IMG_SIZE_X;
-// 	if (key == S && status->y_shift <= IMG_SIZE_Y / 2)
-// 		status->y_shift += 0.1 * IMG_SIZE_X;
-// }
-
-// void	control_mouse_shift(t_status *status, int x, int y)
-// {
-// 	if (status->middle_mouse_button == 1)
-// 	{
-// 		status->x_move = status->x_shift - x;
-// 		status->y_move = status->y_shift - y;
-// 		status->middle_mouse_button = 2;
-// 	}
-// 	if (status->middle_mouse_button == 2)
-// 	{
-// 		status->x_shift = status->x_move + x;
-// 		status->y_shift = status->y_move + y;
-// 	}
-// }
-
 void	control_shift(t_status *status, int key)
 {
 	if (key == ARROW_DOWN)
-		status->c_im += 0.1;
-	if (key == ARROW_UP)
-		status->c_im -= 0.1;
-	if (key == ARROW_RIGHT)
-		status->c_re += 0.1;
-	if (key == ARROW_LEFT)
-		status->c_re -= 0.1;
-	if (key == CHEVRON_RIGHT)
-		status->iter += 10;
-	if (key == CHEVRON_LEFT)
-		status->iter -= 10;
+		status->y_shift -= 20 / status->zoom;
+	else if (key == ARROW_UP)
+		status->y_shift += 20 / status->zoom;
+	else if (key == ARROW_RIGHT)
+		status->x_shift -= 20 / status->zoom;
+	else if (key == ARROW_LEFT)
+		status->x_shift += 20 / status->zoom;
 }
 
-void	control_zoom(t_status *status, int key)
+void	control_mouse_shift(t_status *status, int x, int y)
 {
-	if (key == MOUSE_SCROLL_UP || key == PLUS)
-		status->zoom *= 1.1;
-	if (key == MOUSE_SCROLL_DOWN || key == MINUS)
-		status->zoom /= 1.1;
+	if (status->middle_mouse_button == 1)
+	{
+		status->x_move = status->x_shift + x / status->zoom;
+		status->y_move = status->y_shift + y / status->zoom;
+		status->middle_mouse_button = 2;
+	}
+	if (status->middle_mouse_button == 2)
+	{
+		status->x_shift = status->x_move - x / status->zoom;
+		status->y_shift = status->y_move - y / status->zoom;
+	}
+}
+
+void	control_type(t_status *status)
+{
+	if (status->fractal_type != 4)
+		status->fractal_type++;
+	else
+		status->fractal_type = 1;
+	reset_status(status);
 }
 
 void	control_colors(t_status *status)

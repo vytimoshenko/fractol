@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 02:04:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/30 01:21:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	put_control_keys(t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 70, pos_y, TEXT_COLOR,
 	"CONTROL");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
-	"Move:        W/A/S/D");
+	"Move:        arrows");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
 	"             middle mouse button");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
@@ -40,7 +40,7 @@ void	put_control_keys(t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
 	"             mouse wheel scroll");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 130, TEXT_COLOR,
-	"Iterations:  Page up/Page down");
+	"Iterations:  </>");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
 	"Color:       C");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 190, TEXT_COLOR,

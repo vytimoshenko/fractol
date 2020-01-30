@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 22:04:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/30 02:46:26 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,29 @@
 # include "./libft/libft.h"
 # include "mlx.h"
 # include <OpenCL/opencl.h>
-# include "math.h"
 
 # define PROGRAM_NAME			"fractol"
 
-# define WIN_SIZE_X 			2560
+# define WIN_SIZE_X 			2000
 # define WIN_SIZE_Y				1400
-# define IMG_SIZE_X				1000
-# define IMG_SIZE_Y				1000
+# define IMG_SIZE_X				1400
+# define IMG_SIZE_Y				1400
 
 # define TEXT_COLOR  			0xFFFFFF
 # define BACK_COLOR  			0x555555
 
 # define SOURCE_NAME			"fractol.cl"
-# define KERNEL_NAME			"fractal"
+# define KERNEL_NAME			"fractol"
 # define MAX_SOURCE_SIZE		8192
 
 # define DEVICE					CL_DEVICE_TYPE_GPU
 # define LOCAL_WORK_SIZE		8
+
+# define MANDELBROT				1
+# define JULIA					2
+# define BURNING_SHIP			3
+# define SPIDER					4
+# define SIN					5
 
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
@@ -48,8 +53,6 @@
 # define ESC					53
 # define PLUS					69
 # define MINUS					78
-# define PAGE_UP				116
-# define PAGE_DOWN				121
 # define ARROW_LEFT				123
 # define ARROW_RIGHT			124
 # define ARROW_DOWN				125
@@ -97,48 +100,23 @@ typedef struct			s_status
 	int					fractal_type;
 	char				*fractal_name;
 
-	int					*data;
-
-	double				zoom;
-	float				zoom_init;
-	double				color_theme;
-
+	int					color_theme;
 	int					iter;
+	int					pause;
+	double				zoom;
 
-	int					y_start;
-	int					y_end;
-
-	float				re;
-	float				im;
-	float				re2;
-	float				im2;
-	float				c_re;
-	float				c_im;
-
-	float				d_re;
-	float				d_im;
-	float				x_min;
-	float				x_max;
-	float				y_min;
-	float				y_max;
-
+	double				x_shift;
+	double				y_shift;
+	
 	int					x_mouse_position;
 	int					y_mouse_position;
-
-	int					shift_x;
-	int					shift_y;
-	// int				x_move;
-	// int				y_move;
-	// int				middle_mouse_button;
-
-	double				dy;
-	double				dx;
-	double				ms_y;
-	double				ms_x;
-	int					pause;
-	double				m_y;
-	double				m_x;
-
+	
+	int					middle_mouse_button;
+	int					x_move;
+	int					y_move;
+	
+	double				julia_x;
+	double				julia_y;
 }						t_status;
 
 typedef struct			s_global
@@ -150,38 +128,43 @@ typedef struct			s_global
 
 typedef struct			s_kernel_arg
 {
-	double				m_x;
-	double				m_y;
-	double				zoom;
-	double				dx;
-	double				dy;
+	int					img_size_x;
+	int					img_size_y;
+
+	int					fractal_type;
+	
+	int					color_theme;
 	int					iter;
-	int					type;
-	double				ms_x;
-	double				ms_y;
-	double				color;
+	int					pause;
+	double				zoom;
+
+	double				x_shift;
+	double				y_shift;
+	
+	double				julia_x;
+	double				julia_y;
 }						t_kernel_arg;
 
 int						main(int argc, char **argv);
-
 t_status				*init_status(int argc, char **argv);
 t_mlx					*init_mlx(void);
-t_global				*init_global(int argc, char **argv);
-
-int						check_argument(char *arg);
-void					error_wrong_argument(void);
-void					assign_fractal(t_status *status);
-
-void					clear_background(t_mlx *mlx);
-void					mlx_hooks(t_global *global);
 void					draw(t_global *global);
+void					mlx_hooks(t_global *global);
 
-int						mouse_move(int x, int y, void *param);
-int						mouse_key_press(int key, int x, int y, void *param);
-int						keyboard_key_press(int key, void *param);
-int						close_window(void *param);
+void					reset_status(t_status *status);
+void					check_argument(t_status *status, char *arg);
+void					error_wrong_argument(void);
+
+int						mouse_move(int x, int y, t_global *global);
+int						mouse_key_press(int key, int x, int y, t_global *global);
+int						mouse_key_release(int key, int x, int y, t_global *global);
+int						keyboard_key_press(int key, t_global *global);
+int						close_window(t_open_cl *open_cl);
 
 void					get_mouse_position(t_status *status, int x, int y);
+void					control_mouse_shift(t_status *status, int x, int y);
+void					control_type(t_status *status);
+void					control_iteration(t_status *status, int key);
 void					control_shift(t_status *status, int key);
 void					control_zoom(t_status *status, int key);
 void					control_colors(t_status *status);

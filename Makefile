@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/01/28 21:57:17 by mperseus         ###   ########.fr        #
+#    Updated: 2020/01/30 00:02:23 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,7 @@ NAME	= 	fractol
 HDR		= 	fractol.h
 
 SRC		= 	fractol_main.c					\
-			fractol_global_init.c			\
 			fractol_check_arg.c				\
-			fractol_draw.c					\
 			fractol_mlx_hooks.c				\
 			fractol_mlx_control.c			\
 			fractol_mlx_put_info_1.c		\
