@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 23:20:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/01 02:34:26 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	control_type(t_status *status)
 
 void	control_iteration(t_status *status, int key)
 {
-	if (key == CHEVRON_RIGHT && status->iter < 1000)
+	if (key == CHEVRON_RIGHT && status->iter)
 		status->iter += 10;
 	else if (key == CHEVRON_LEFT && status->iter > 10)
 		status->iter -= 10;
@@ -37,14 +37,6 @@ void	control_colors(t_status *status)
 		status->color_theme = 0;
 }
 
-void	control_hide_info(t_status *status)
-{
-	if (status->hide_info == 0)
-		status->hide_info++;
-	else
-		status->hide_info = 0;
-}
-
 void	control_device(t_global *global)
 {
 	if (global->status->device == 0)
@@ -53,4 +45,10 @@ void	control_device(t_global *global)
 		global->status->device = 0;
 	clean_open_cl(global->open_cl);
 	global->open_cl = init_open_cl(global->status->device);
+}
+
+void	set_julia(t_status *status, int x, int y)
+{
+	status->julia_x = ((double)x - (double)IMG_SIZE_X / 2) * 0.001;
+	status->julia_y = ((double)y - (double)IMG_SIZE_Y / 2) * 0.001;
 }

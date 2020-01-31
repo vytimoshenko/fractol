@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 23:23:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:51:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ void	control_mouse_shift(t_status *status, int x, int y)
 {
 	if (status->middle_mouse_button == 1)
 	{
-		status->x_move = status->x_shift + x / status->zoom;
-		status->y_move = status->y_shift + y / status->zoom;
+		status->x_move = x;
+		status->y_move = y;
 		status->middle_mouse_button = 2;
 	}
 	if (status->middle_mouse_button == 2)
 	{
-		status->x_shift = status->x_move - x / status->zoom;
-		status->y_shift = status->y_move - y / status->zoom;
+		status->x_shift -= (x - status->x_move) / status->zoom;
+		status->y_shift += (status->y_move - y) / status->zoom;
+		status->x_move = x;
+		status->y_move = y;
 	}
 }

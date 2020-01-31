@@ -22,6 +22,8 @@ typedef struct			s_kernel_arg
 
 	double				x_shift;
 	double				y_shift;
+	double				m_x;
+	double				m_y;
 	
 	double				julia_x;
 	double				julia_y;
@@ -72,10 +74,8 @@ __kernel void fractol(__global char *data, t_kernel_arg kernel_arg)
     	i = 0;
     	x = id % kernel_arg.img_size_x;
     	y = id / kernel_arg.img_size_x;
-    	c_re = (x - kernel_arg.img_size_x / 2) / kernel_arg.zoom + kernel_arg.x_shift;
-        c_im = (y - kernel_arg.img_size_y / 2) / kernel_arg.zoom + kernel_arg.y_shift;
-		// kernel_arg.julia_y = (x - kernel_arg.img_size_x / 2) * 0.002;
-		// kernel_arg.julia_y = (y - kernel_arg.img_size_y / 2) * 0.002;
+    	c_re = (x - kernel_arg.m_x) / kernel_arg.zoom + kernel_arg.x_shift;
+        c_im = (y - kernel_arg.m_y) / kernel_arg.zoom + kernel_arg.y_shift;
         re[NEW] = c_re;
         im[NEW] = c_im;
         if (kernel_arg.fractal_type == MANDELBROT)

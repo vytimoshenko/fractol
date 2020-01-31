@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 23:22:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/01 02:25:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ typedef struct			s_kernel_arg
 
 	double				x_shift;
 	double				y_shift;
+	double				m_x;
+	double				m_y;
 
 	double				julia_x;
 	double				julia_y;
@@ -180,8 +182,8 @@ void					control_mouse_shift(t_status *status, int x, int y);
 void					control_type(t_status *status);
 void					control_iteration(t_status *status, int key);
 void					control_colors(t_status *status);
-void					control_hide_info(t_status *status);
 void					control_device(t_global *global);
+void					set_julia(t_status *status, int x, int y);
 
 void					put_info_to_window(t_global *global);
 void					put_control_keys_1(t_status *status, t_mlx *mlx);

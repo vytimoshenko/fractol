@@ -6,30 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 21:26:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:29:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-// void		assign_fractal(t_status *status)
-// {
-// 	status->iter_max = 20;
-// 	status->x_min = -2.5;
-// 	status->x_max = 2.4;
-// 	status->y_min = -1.5;
-// 	status->y_max = 1.5;
-// 	status->c_re = -0.70176;
-//     status->c_im = -0.3842;
-// 	status->y_start = 0;
-// 	status->y_end = IMG_SIZE_Y;
-// 	// if (status->fractal_type == 3)
-// 	// {
-// 	// 	status->c_re = 1.17462;
-//     // 	status->c_im = 0.427525;
-// 	// }
-// 	status->zoom = 1;
-// }
 
 void	reset_status(t_status *status)
 {
@@ -40,8 +21,8 @@ void	reset_status(t_status *status)
 	status->y_shift = 0;
 	status->julia_x = 0;
 	status->julia_y = 0;
-	// status->julia_x = (double)IMG_SIZE_X / 2;
-	// status->julia_y = (double)IMG_SIZE_X / 2;
+	status->m_x = (double)IMG_SIZE_X / 2;
+	status->m_y = (double)IMG_SIZE_Y / 2;
 	status->pause = 1;
 }
 

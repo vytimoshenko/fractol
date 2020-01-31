@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:12:19 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 20:31:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:29:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	pack_arg_to_struct(t_status *status, t_kernel_arg *kernel_arg)
 	kernel_arg->zoom = status->zoom;
 	kernel_arg->x_shift = status->x_shift;
 	kernel_arg->y_shift = status->y_shift;
+	kernel_arg->m_x = status->m_x;
+	kernel_arg->m_y = status->m_y;
 	kernel_arg->julia_x = status->julia_x;
 	kernel_arg->julia_x = status->julia_y;
 }
