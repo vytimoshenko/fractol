@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 22:47:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 23:13:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	put_control_keys_1(t_status *status, t_mlx *mlx)
 	else
 		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
 		"Constant:         not available");
-
 }
 
 void	put_control_keys_2(t_mlx *mlx)

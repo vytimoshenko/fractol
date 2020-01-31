@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 23:26:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 20:27:25 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 23:24:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,7 @@ t_open_cl	*init_open_cl(int device)
 		ft_put_errno(PROGRAM_NAME);
 	if ((err_code = clGetPlatformIDs(1, &(open_cl->platform_id), NULL)))
 		put_open_cl_error(open_cl, "clGetPlatformIDs error", err_code);
-	if (device == CPU)
-	{
-		if ((err_code = clGetDeviceIDs(open_cl->platform_id, CL_DEVICE_TYPE_CPU, 1,
-		&(open_cl->device_id), NULL)))
-			put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
-	}
-	if (device == GPU)
-	{
-		if ((err_code = clGetDeviceIDs(open_cl->platform_id, CL_DEVICE_TYPE_GPU, 1,
-		&(open_cl->device_id), NULL)))
-			put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
-	}
+	get_device(open_cl, device);
 	if (!(open_cl->context = clCreateContext(NULL, 1, &(open_cl->device_id),
 	NULL, NULL, &err_code)))
 		put_open_cl_error(open_cl, "clCreateContext error", err_code);
@@ -45,6 +34,24 @@ t_open_cl	*init_open_cl(int device)
 	open_cl->global_work_size = IMG_SIZE_X * IMG_SIZE_Y;
 	open_cl->local_work_size = LOCAL_WORK_SIZE;
 	return (open_cl);
+}
+
+void		get_device(t_open_cl *open_cl, int device)
+{
+	cl_int		err_code;
+
+	if (device == CPU)
+	{
+		if ((err_code = clGetDeviceIDs(open_cl->platform_id, CL_DEVICE_TYPE_CPU,
+		1, &(open_cl->device_id), NULL)))
+			put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
+	}
+	if (device == GPU)
+	{
+		if ((err_code = clGetDeviceIDs(open_cl->platform_id, CL_DEVICE_TYPE_GPU,
+		1, &(open_cl->device_id), NULL)))
+			put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
+	}
 }
 
 void		read_open_cl_kernel(t_open_cl *open_cl)

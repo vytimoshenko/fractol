@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 21:33:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 23:22:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_mlx		*init_mlx(void)
 	return (mlx);
 }
 
-void	draw(t_global *global)
+void		draw(t_global *global)
 {
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	run_open_cl(global);
@@ -53,7 +53,7 @@ void	draw(t_global *global)
 		put_info_to_window(global);
 }
 
-void	mlx_hooks(t_global *global)
+void		mlx_hooks(t_global *global)
 {
 	mlx_hook(global->mlx->win, 2, 0, keyboard_key_press, global);
 	mlx_hook(global->mlx->win, 4, 0, mouse_key_press, global);
@@ -63,7 +63,7 @@ void	mlx_hooks(t_global *global)
 	mlx_loop(global->mlx->mlx);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_global	*global;
 
@@ -72,7 +72,6 @@ int	main(int argc, char **argv)
 	global->status = init_status(argc, argv);
 	global->mlx = init_mlx();
 	global->open_cl = init_open_cl(global->status->device);
-	// printf("%d", global->status->device);
 	draw(global);
 	mlx_hooks(global);
 	exit(0);

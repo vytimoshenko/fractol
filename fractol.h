@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 22:22:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 23:22:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ typedef struct			s_status
 	double				y_shift;
 	double				m_x;
 	double				m_y;
-	
+
 	int					x_mouse_position;
 	int					y_mouse_position;
-	
+
 	int					middle_mouse_button;
 	int					x_move;
 	int					y_move;
-	
+
 	double				julia_x;
 	double				julia_y;
 }						t_status;
@@ -139,7 +139,7 @@ typedef struct			s_kernel_arg
 	int					img_size_y;
 
 	int					fractal_type;
-	
+
 	int					color_theme;
 	int					iter;
 	int					pause;
@@ -147,7 +147,7 @@ typedef struct			s_kernel_arg
 
 	double				x_shift;
 	double				y_shift;
-	
+
 	double				julia_x;
 	double				julia_y;
 }						t_kernel_arg;
@@ -163,17 +163,22 @@ void					check_argument(t_status *status, char *arg);
 void					error_wrong_argument(void);
 
 int						mouse_move(int x, int y, t_global *global);
-int						mouse_key_press(int key, int x, int y, t_global *global);
-int						mouse_key_release(int key, int x, int y, t_global *global);
+int						mouse_key_press(int key, int x, int y,
+						t_global *global);
+int						mouse_key_release(int key, int x, int y,
+						t_global *global);
 int						keyboard_key_press(int key, t_global *global);
 int						close_window(t_open_cl *open_cl);
 
 void					get_mouse_position(t_status *status, int x, int y);
+void					control_zoom(t_status *status, int key);
+void					control_mouse_zoom(t_status *status, int x, int y,
+						int key);
+void					control_shift(t_status *status, int key);
 void					control_mouse_shift(t_status *status, int x, int y);
+
 void					control_type(t_status *status);
 void					control_iteration(t_status *status, int key);
-void					control_shift(t_status *status, int key);
-void					control_zoom(t_status *status, int key);
 void					control_colors(t_status *status);
 void					control_hide_info(t_status *status);
 void					control_device(t_global *global);
@@ -190,6 +195,7 @@ void					put_status_4(t_status *status, t_mlx *mlx);
 void					put_status_5(t_status *status, t_mlx *mlx);
 
 t_open_cl				*init_open_cl(int device);
+void					get_device(t_open_cl *open_cl, int device);
 void					read_open_cl_kernel(t_open_cl *open_cl);
 void					load_open_cl_kernel(t_open_cl *open_cl);
 
