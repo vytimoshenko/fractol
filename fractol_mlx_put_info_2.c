@@ -6,31 +6,33 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 02:35:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 22:47:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	put_status_1(t_status *status, t_mlx *mlx)
+void	put_status_1(t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
-	char	*str;
 
-	pos_x = WIN_SIZE_X - 340;
-	pos_y = 390;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 70, pos_y, TEXT_COLOR,
+	pos_x = WIN_SIZE_X - 440;
+	pos_y = 70;
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"STATUS");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Type:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 30, TEXT_COLOR,
-	status->fractal_name);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,
-	"Iterations:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 60, TEXT_COLOR,
-	str = ft_itoa(status->iter));
-	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 30, TEXT_COLOR,
+	"Mandelbrot");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 50, TEXT_COLOR,
+	"Julia");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 70, TEXT_COLOR,
+	"Burning ship");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 90, TEXT_COLOR,
+	"Spider");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 110, TEXT_COLOR,
+	"Sin");
 }
 
 void	put_status_2(t_status *status, t_mlx *mlx)
@@ -38,25 +40,73 @@ void	put_status_2(t_status *status, t_mlx *mlx)
 	int		pos_x;
 	int		pos_y;
 
-	pos_x = WIN_SIZE_X - 340;
-	pos_y = 440;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 200,
-	TEXT_COLOR, "Color:");
+	pos_x = WIN_SIZE_X - 440;
+	pos_y = 70;
+	if (status->fractal_type == MANDELBROT)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 30, TEXT_COLOR,
+		">");
+	else if (status->fractal_type == JULIA)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 50, TEXT_COLOR,
+		">");
+	else if (status->fractal_type == BURNING_SHIP)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 70, TEXT_COLOR,
+		">");
+	else if (status->fractal_type == SPIDER)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 90, TEXT_COLOR,
+		">");
+	else if (status->fractal_type == SIN)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 110, TEXT_COLOR,
+		">");
+}
+
+
+void	put_status_3(t_status *status, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	char	*str;
+	
+	pos_x = WIN_SIZE_X - 440;
+	pos_y = 70;
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 140, TEXT_COLOR,
+	"Iterations:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 140, TEXT_COLOR,
+	str = ft_itoa(status->iter));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 170, TEXT_COLOR,
+	"Color:");
 	if (status->color_theme == 0)
-		mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 200, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
 		"Theme #1");
 	else if (status->color_theme == 1)
-		mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 200, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
 		"Theme #2");
 	else if (status->color_theme == 2)
-		mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 200, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
 		"Theme #3");
-	else
-		mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 200, TEXT_COLOR,
+	else if (status->color_theme == 3)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
 		"Theme #4");
 }
 
-void	put_status_3(t_status *status, t_mlx *mlx)
+void	put_status_4(t_status *status, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	
+	pos_x = WIN_SIZE_X - 440;
+	pos_y = 70;
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 200, TEXT_COLOR,
+	"Device:");
+	if (status->device == 0)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 200, TEXT_COLOR,
+		"CPU");
+	if (status->device == 1)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 200, TEXT_COLOR,
+		"GPU");
+}
+
+void	put_status_5(t_status *status, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;

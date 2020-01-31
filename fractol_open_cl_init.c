@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 23:26:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 17:49:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:27:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_open_cl	*init_open_cl(void)
+t_open_cl	*init_open_cl(int device)
 {
 	t_open_cl	*open_cl;
 	cl_int		err_code;
@@ -22,9 +22,18 @@ t_open_cl	*init_open_cl(void)
 		ft_put_errno(PROGRAM_NAME);
 	if ((err_code = clGetPlatformIDs(1, &(open_cl->platform_id), NULL)))
 		put_open_cl_error(open_cl, "clGetPlatformIDs error", err_code);
-	if ((err_code = clGetDeviceIDs(open_cl->platform_id, DEVICE, 1,
-	&(open_cl->device_id), NULL)))
-		put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
+	if (device == CPU)
+	{
+		if ((err_code = clGetDeviceIDs(open_cl->platform_id, CL_DEVICE_TYPE_CPU, 1,
+		&(open_cl->device_id), NULL)))
+			put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
+	}
+	if (device == GPU)
+	{
+		if ((err_code = clGetDeviceIDs(open_cl->platform_id, CL_DEVICE_TYPE_GPU, 1,
+		&(open_cl->device_id), NULL)))
+			put_open_cl_error(open_cl, "clGetDeviceIDs error", err_code);
+	}
 	if (!(open_cl->context = clCreateContext(NULL, 1, &(open_cl->device_id),
 	NULL, NULL, &err_code)))
 		put_open_cl_error(open_cl, "clCreateContext error", err_code);

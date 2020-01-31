@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/30 03:14:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:32:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ int		keyboard_key_press(int key, t_global *global)
 		control_type(global->status);
 	if (key == C)
 		control_colors(global->status);
+	if (key == H)
+		control_hide_info(global->status);
 	if (key == R)
 		reset_status(global->status);
+	if (key == D)
+		control_device(global);
 	draw(global);
 	if (key == ESC)
 	{

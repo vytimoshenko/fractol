@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/30 02:38:01 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:33:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	draw(t_global *global)
 	run_open_cl(global);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, 0, 0);
-	put_info_to_window(global);
+	if (!(global->status->hide_info))
+		put_info_to_window(global);
 }
 
 void	mlx_hooks(t_global *global)
@@ -70,7 +71,8 @@ int	main(int argc, char **argv)
 		ft_put_errno(PROGRAM_NAME);
 	global->status = init_status(argc, argv);
 	global->mlx = init_mlx();
-	global->open_cl = init_open_cl();
+	global->open_cl = init_open_cl(global->status->device);
+	// printf("%d", global->status->device);
 	draw(global);
 	mlx_hooks(global);
 	exit(0);

@@ -71,7 +71,7 @@ __kernel void fractol(__global char *data, t_kernel_arg kernel_arg)
         id = get_global_id(0);
     	i = 0;
     	x = id % kernel_arg.img_size_x;
-    	y = id / kernel_arg.img_size_y;
+    	y = id / kernel_arg.img_size_x;
     	c_re = (x - kernel_arg.img_size_x / 2) / kernel_arg.zoom + kernel_arg.x_shift;
         c_im = (y - kernel_arg.img_size_y / 2) / kernel_arg.zoom + kernel_arg.y_shift;
 		// kernel_arg.julia_y = (x - kernel_arg.img_size_x / 2) * 0.002;

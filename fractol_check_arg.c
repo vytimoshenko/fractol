@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/30 02:30:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:26:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 void	reset_status(t_status *status)
 {
 	status->color_theme = 0;
-	status->iter = 50;
+	status->iter = 100;
 	status->zoom = 300;
 	status->x_shift = 0;
 	status->y_shift = 0;
@@ -43,16 +43,6 @@ void	reset_status(t_status *status)
 	// status->julia_x = (double)IMG_SIZE_X / 2;
 	// status->julia_y = (double)IMG_SIZE_X / 2;
 	status->pause = 1;
-	if (status->fractal_type == MANDELBROT)
-		status->fractal_name = "Mandelbrot";
-	else if (status->fractal_type == JULIA)
-		status->fractal_name = "Julia";
-	else if (status->fractal_type == BURNING_SHIP)
-		status->fractal_name = "Burning ship";
-	else if (status->fractal_type == SPIDER)
-		status->fractal_name = "Spider";
-	else if (status->fractal_type == SIN)
-		status->fractal_name = "Sin";
 }
 
 void	check_argument(t_status *status, char *argv)

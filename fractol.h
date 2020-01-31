@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/30 02:46:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/01/31 22:22:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@
 
 # define PROGRAM_NAME			"fractol"
 
-# define WIN_SIZE_X 			2000
+# define WIN_SIZE_X 			2560
 # define WIN_SIZE_Y				1400
-# define IMG_SIZE_X				1400
+# define IMG_SIZE_X				2560
 # define IMG_SIZE_Y				1400
 
 # define TEXT_COLOR  			0xFFFFFF
 # define BACK_COLOR  			0x555555
 
+# define CPU					0
+# define GPU					1
+
 # define SOURCE_NAME			"fractol.cl"
 # define KERNEL_NAME			"fractol"
 # define MAX_SOURCE_SIZE		8192
-
-# define DEVICE					CL_DEVICE_TYPE_GPU
-# define LOCAL_WORK_SIZE		8
+# define LOCAL_WORK_SIZE		64
 
 # define MANDELBROT				1
 # define JULIA					2
@@ -44,6 +45,9 @@
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
 # define MOUSE_SCROLL_DOWN		5
+
+# define D						2
+# define H						4
 # define C						8
 # define R						15
 # define RETURN					36
@@ -97,9 +101,10 @@ typedef struct			s_open_cl
 
 typedef struct			s_status
 {
+	int					device;
 	int					fractal_type;
-	char				*fractal_name;
 
+	int					hide_info;
 	int					color_theme;
 	int					iter;
 	int					pause;
@@ -107,6 +112,8 @@ typedef struct			s_status
 
 	double				x_shift;
 	double				y_shift;
+	double				m_x;
+	double				m_y;
 	
 	int					x_mouse_position;
 	int					y_mouse_position;
@@ -168,17 +175,21 @@ void					control_iteration(t_status *status, int key);
 void					control_shift(t_status *status, int key);
 void					control_zoom(t_status *status, int key);
 void					control_colors(t_status *status);
+void					control_hide_info(t_status *status);
+void					control_device(t_global *global);
 
 void					put_info_to_window(t_global *global);
-void					put_control_keys(t_mlx *mlx);
-void					put_open_cl_info_1(t_open_cl *open_cl, t_mlx *mlx);
-void					put_open_cl_info_2(t_open_cl *open_cl, t_mlx *mlx);
+void					put_control_keys_1(t_status *status, t_mlx *mlx);
+void					put_control_keys_2(t_mlx *mlx);
+void					put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx);
 
-void					put_status_1(t_status *status, t_mlx *mlx);
+void					put_status_1(t_mlx *mlx);
 void					put_status_2(t_status *status, t_mlx *mlx);
 void					put_status_3(t_status *status, t_mlx *mlx);
+void					put_status_4(t_status *status, t_mlx *mlx);
+void					put_status_5(t_status *status, t_mlx *mlx);
 
-t_open_cl				*init_open_cl(void);
+t_open_cl				*init_open_cl(int device);
 void					read_open_cl_kernel(t_open_cl *open_cl);
 void					load_open_cl_kernel(t_open_cl *open_cl);
 
