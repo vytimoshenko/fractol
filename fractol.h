@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/01 02:25:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:09:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,20 +110,20 @@ typedef struct			s_status
 	int					pause;
 	double				zoom;
 
+	double				x_center;
+	double				y_center;
 	double				x_shift;
 	double				y_shift;
-	double				m_x;
-	double				m_y;
 
 	int					x_mouse_position;
 	int					y_mouse_position;
 
 	int					middle_mouse_button;
-	int					x_move;
-	int					y_move;
+	double				x_move;
+	double				y_move;
 
-	double				julia_x;
-	double				julia_y;
+	double				x_julia;
+	double				y_julia;
 }						t_status;
 
 typedef struct			s_global
@@ -136,7 +136,6 @@ typedef struct			s_global
 typedef struct			s_kernel_arg
 {
 	int					img_size_x;
-	int					img_size_y;
 
 	int					fractal_type;
 
@@ -145,13 +144,13 @@ typedef struct			s_kernel_arg
 	int					pause;
 	double				zoom;
 
+	double				x_center;
+	double				y_center;
 	double				x_shift;
 	double				y_shift;
-	double				m_x;
-	double				m_y;
 
-	double				julia_x;
-	double				julia_y;
+	double				x_julia;
+	double				y_julia;
 }						t_kernel_arg;
 
 int						main(int argc, char **argv);

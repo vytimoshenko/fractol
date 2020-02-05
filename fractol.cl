@@ -11,7 +11,6 @@
 typedef struct			s_kernel_arg
 {
 	int					img_size_x;
-	int					img_size_y;
 
 	int					fractal_type;
 	
@@ -20,13 +19,13 @@ typedef struct			s_kernel_arg
 	int					pause;
 	double				zoom;
 
+	double				x_center;
+	double				y_center;
 	double				x_shift;
 	double				y_shift;
-	double				m_x;
-	double				m_y;
 	
-	double				julia_x;
-	double				julia_y;
+	double				x_julia;
+	double				y_julia;
 }						t_kernel_arg;
 
 int 	get_color(int i, int max, int color_theme);
@@ -59,7 +58,7 @@ int 		get_color(int i, int max, int color_theme)
 	return (0);
 }
 
-__kernel void fractol(__global char *data, t_kernel_arg kernel_arg)
+__kernel void fractol(__global int *data, t_kernel_arg kernel_arg)
 {
     	double	re[2];
     	double	im[2];
@@ -74,8 +73,8 @@ __kernel void fractol(__global char *data, t_kernel_arg kernel_arg)
     	i = 0;
     	x = id % kernel_arg.img_size_x;
     	y = id / kernel_arg.img_size_x;
-    	c_re = (x - kernel_arg.m_x) / kernel_arg.zoom + kernel_arg.x_shift;
-        c_im = (y - kernel_arg.m_y) / kernel_arg.zoom + kernel_arg.y_shift;
+    	c_re = (x - kernel_arg.x_center) / kernel_arg.zoom + kernel_arg.x_shift;
+        c_im = (y - kernel_arg.y_center) / kernel_arg.zoom + kernel_arg.y_shift;
         re[NEW] = c_re;
         im[NEW] = c_im;
         if (kernel_arg.fractal_type == MANDELBROT)
@@ -94,8 +93,8 @@ __kernel void fractol(__global char *data, t_kernel_arg kernel_arg)
    	 		{
     			re[OLD] = re[NEW];
         		im[OLD] = im[NEW];
-        		im[NEW] = 2 * im[OLD] * re[OLD] + kernel_arg.julia_y;
-        	    re[NEW] = re[OLD] * re[OLD] - im[OLD] * im[OLD] + kernel_arg.julia_x;
+        		im[NEW] = 2 * im[OLD] * re[OLD] + kernel_arg.y_julia;
+        	    re[NEW] = re[OLD] * re[OLD] - im[OLD] * im[OLD] + kernel_arg.x_julia;
     		}
     	}
 		else if (kernel_arg.fractal_type == BURNING_SHIP)

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:12:19 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/01 01:29:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:31:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ void	set_arg_open_cl_kernel(t_status *status, t_open_cl *open_cl)
 void	pack_arg_to_struct(t_status *status, t_kernel_arg *kernel_arg)
 {
 	kernel_arg->img_size_x = IMG_SIZE_X;
-	kernel_arg->img_size_y = IMG_SIZE_Y;
 	kernel_arg->fractal_type = status->fractal_type;
 	kernel_arg->color_theme = status->color_theme;
 	kernel_arg->iter = status->iter;
 	kernel_arg->pause = status->pause;
 	kernel_arg->zoom = status->zoom;
+	kernel_arg->x_center = status->x_center;
+	kernel_arg->y_center = status->y_center;
 	kernel_arg->x_shift = status->x_shift;
 	kernel_arg->y_shift = status->y_shift;
-	kernel_arg->m_x = status->m_x;
-	kernel_arg->m_y = status->m_y;
-	kernel_arg->julia_x = status->julia_x;
-	kernel_arg->julia_x = status->julia_y;
+	kernel_arg->x_julia = status->x_julia;
+	kernel_arg->y_julia = status->y_julia;
 }
 
 void	execute_open_cl_kernel(t_open_cl *open_cl)

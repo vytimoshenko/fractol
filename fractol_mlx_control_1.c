@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/01 01:51:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:02:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	get_mouse_position(t_status *status, int x, int y)
 void	control_zoom(t_status *status, int key)
 {
 	if (key == PLUS)
-		status->zoom *= 1.25;
+		status->zoom *= 1.1;
 	else if (key == MINUS)
-		status->zoom /= 1.25;
+		status->zoom /= 1.1;
 }
 
 void	control_mouse_zoom(t_status *status, int x, int y, int key)
@@ -37,33 +37,33 @@ void	control_mouse_zoom(t_status *status, int x, int y, int key)
 
 	tmp = status->zoom;
 	if (key == MOUSE_SCROLL_UP)
-		status->zoom *= 1.25;
+		status->zoom *= 1.1;
 	else if (key == MOUSE_SCROLL_DOWN)
-		status->zoom /= 1.25;
+		status->zoom /= 1.1;
 	if (tmp < status->zoom)
 	{
-		status->x_shift -= (status->m_x - x) * 1.25 / status->zoom;
-		status->y_shift -= (status->m_y - y) * 1.25 / status->zoom;
+		status->x_shift -= (status->x_center - x) * 1.1 / status->zoom;
+		status->y_shift -= (status->y_center - y) * 1.1 / status->zoom;
 	}
 	else
 	{
-		status->x_shift -= (status->m_x - x) / 1.25 / status->zoom;
-		status->y_shift -= (status->m_y - y) / 1.25 / status->zoom;
+		status->x_shift -= (status->x_center - x) / 1.1 / status->zoom;
+		status->y_shift -= (status->y_center - y) / 1.1 / status->zoom;
 	}
-	status->m_x = x;
-	status->m_y = y;
+	status->x_center = x;
+	status->y_center = y;
 }
 
 void	control_shift(t_status *status, int key)
 {
 	if (key == ARROW_DOWN)
-		status->y_shift -= 20 / status->zoom;
+		status->y_shift -= 10 / status->zoom;
 	else if (key == ARROW_UP)
-		status->y_shift += 20 / status->zoom;
+		status->y_shift += 10 / status->zoom;
 	else if (key == ARROW_RIGHT)
-		status->x_shift -= 20 / status->zoom;
+		status->x_shift -= 10 / status->zoom;
 	else if (key == ARROW_LEFT)
-		status->x_shift += 20 / status->zoom;
+		status->x_shift += 10 / status->zoom;
 }
 
 void	control_mouse_shift(t_status *status, int x, int y)

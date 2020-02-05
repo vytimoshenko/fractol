@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 23:22:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:14:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,12 @@ void		mlx_hooks(t_global *global)
 
 int			main(int argc, char **argv)
 {
-	t_global	*global;
+	t_global	global;
 
-	if (!(global = (t_global *)ft_memalloc(sizeof(t_global))))
-		ft_put_errno(PROGRAM_NAME);
-	global->status = init_status(argc, argv);
-	global->mlx = init_mlx();
-	global->open_cl = init_open_cl(global->status->device);
-	draw(global);
-	mlx_hooks(global);
+	global.status = init_status(argc, argv);
+	global.mlx = init_mlx();
+	global.open_cl = init_open_cl(global.status->device);
+	draw(&global);
+	mlx_hooks(&global);
 	exit(0);
 }
