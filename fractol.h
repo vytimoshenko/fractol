@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/05 19:09:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/08 01:52:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,14 +154,16 @@ typedef struct			s_kernel_arg
 }						t_kernel_arg;
 
 int						main(int argc, char **argv);
+
 t_status				*init_status(int argc, char **argv);
+void					check_argument(t_status *status, char *arg);
+void					error_wrong_argument(void);
+void					reset_status(t_status *status);
+
 t_mlx					*init_mlx(void);
 void					draw(t_global *global);
 void					mlx_hooks(t_global *global);
-
-void					reset_status(t_status *status);
-void					check_argument(t_status *status, char *arg);
-void					error_wrong_argument(void);
+void					run(t_global *global);
 
 int						mouse_move(int x, int y, t_global *global);
 int						mouse_key_press(int key, int x, int y,

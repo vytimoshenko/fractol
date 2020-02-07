@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_check_arg.c                                :+:      :+:    :+:   */
+/*   fractol_status_init.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/05 18:57:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/08 01:53:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	reset_status(t_status *status)
+t_status	*init_status(int argc, char **argv)
 {
-	status->color_theme = 0;
-	status->iter = 100;
-	status->zoom = 300;
-	status->x_shift = 0;
-	status->y_shift = 0;
-	status->x_julia = -0.7018;
-	status->y_julia = -0.3842;
-	status->x_center = (double)IMG_SIZE_X / 2;
-	status->y_center = (double)IMG_SIZE_Y / 2;
-	status->pause = 1;
+	t_status		*status;
+
+	if (argc != 2)
+		error_wrong_argument();
+	if (!(status = (t_status *)ft_memalloc(sizeof(t_status))))
+		ft_put_errno(PROGRAM_NAME);
+	check_argument(status, argv[1]);
+	reset_status(status);
+	return (status);
 }
 
-void	check_argument(t_status *status, char *argv)
+void		check_argument(t_status *status, char *argv)
 {
 	if (ft_atoi(argv) == MANDELBROT)
 		status->fractal_type = 1;
@@ -42,7 +41,7 @@ void	check_argument(t_status *status, char *argv)
 		error_wrong_argument();
 }
 
-void	error_wrong_argument(void)
+void		error_wrong_argument(void)
 {
 	ft_putendl("usage:");
 	ft_putendl("\tmandelbrot\t1");
@@ -51,4 +50,18 @@ void	error_wrong_argument(void)
 	ft_putendl("\tspider\t\t4");
 	ft_putendl("\tsin\t\t5");
 	exit(1);
+}
+
+void		reset_status(t_status *status)
+{
+	status->color_theme = 0;
+	status->iter = 100;
+	status->zoom = 300;
+	status->x_shift = 0;
+	status->y_shift = 0;
+	status->x_julia = -0.7018;
+	status->y_julia = -0.3842;
+	status->x_center = (double)IMG_SIZE_X / 2;
+	status->y_center = (double)IMG_SIZE_Y / 2;
+	status->pause = 1;
 }

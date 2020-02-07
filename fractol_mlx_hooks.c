@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/01 02:29:01 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/08 01:40:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,10 @@ int		mouse_move(int x, int y, t_global *global)
 
 int		mouse_key_press(int key, int x, int y, t_global *global)
 {
-	(void)x;
-	(void)y;
-	if (x >= 0 || y >= 0 || x <= IMG_SIZE_X || y <= IMG_SIZE_Y)
-	{
-		if (key == MIDDLE_MOUSE_BUTTON)
-			global->status->middle_mouse_button = 1;
-		if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
-			control_mouse_zoom(global->status, x, y, key);
-	}
+	if (key == MIDDLE_MOUSE_BUTTON)
+		global->status->middle_mouse_button = 1;
+	if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
+		control_mouse_zoom(global->status, x, y, key);
 	draw(global);
 	return (0);
 }
