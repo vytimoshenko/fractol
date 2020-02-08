@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 00:43:04 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 00:44:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 02:16:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,27 @@ void	clean_open_cl_2(t_open_cl *open_cl)
 	}
 }
 
+void	clean_open_cl_info(t_open_cl *open_cl)
+{
+	if (open_cl->platform_name)
+		ft_memdel((void **)&(open_cl->platform_name));
+	if (open_cl->device_name)
+		ft_memdel((void **)&(open_cl->device_name));
+	if (open_cl->driver_ver)
+		ft_memdel((void **)&(open_cl->driver_ver));
+	if (open_cl->source_str)
+		ft_memdel((void **)&(open_cl->source_str));
+	if (open_cl->program_build_log)
+		ft_memdel((void **)&(open_cl->program_build_log));
+}
+
 void	clean_open_cl(t_open_cl *open_cl)
 {
-	clean_open_cl_1(open_cl);
-	clean_open_cl_2(open_cl);
+	if (open_cl)
+	{
+		clean_open_cl_1(open_cl);
+		clean_open_cl_2(open_cl);
+		clean_open_cl_info(open_cl);
+		ft_memdel((void **)&open_cl);
+	}
 }

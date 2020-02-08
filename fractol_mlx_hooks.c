@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/08 02:52:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 02:26:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 
 int		keyboard_key_press(int key, t_global *global)
 {
-	control_iteration(global->status, key);
-	control_zoom(global->status, key);
-	control_shift(global->status, key);
+	if (key == ESC)
+		close_window(global);
 	if (key == SPACE)
 		global->status->pause = global->status->pause ? 0 : 1;
 	if (key == RETURN)
@@ -59,17 +58,16 @@ int		keyboard_key_press(int key, t_global *global)
 		reset_status(global->status);
 	if (key == D)
 		control_device(global);
+	control_iteration(global->status, key);
+	control_zoom(global->status, key);
+	control_shift(global->status, key);
 	draw(global);
-	if (key == ESC)
-	{
-		clean_open_cl(global->open_cl);
-		exit(0);
-	}
 	return (0);
 }
 
-int		close_window(t_open_cl *open_cl)
+int		close_window(t_global *global)
 {
-	clean_open_cl(open_cl);
+	clean_open_cl(global->open_cl);
+	clean_mlx(global->mlx);
 	exit(0);
 }

@@ -6,11 +6,20 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:07:24 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/28 21:06:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 02:39:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	pfn_notify(const char *errinfo, const void *private_info, size_t cb,
+		void *user_data)
+{
+	(void)private_info;
+	(void)cb;
+	(void)user_data;
+	ft_putstr(errinfo);
+}
 
 void	put_error_pn(char *str)
 {

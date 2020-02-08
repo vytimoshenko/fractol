@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:12:19 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/05 17:31:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 01:15:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void	set_arg_open_cl_kernel(t_status *status, t_open_cl *open_cl)
 	cl_int			err_code;
 	t_kernel_arg	kernel_arg;
 
-	if (!(open_cl->buf = clCreateBuffer(open_cl->context, CL_MEM_WRITE_ONLY,
-	open_cl->global_work_size * sizeof(int), NULL, &err_code)))
-		put_open_cl_error(open_cl, "clCreateBuffer error", err_code);
+	if (!(open_cl->buf))
+	{
+		if (!(open_cl->buf = clCreateBuffer(open_cl->context, CL_MEM_WRITE_ONLY,
+		open_cl->global_work_size * sizeof(int), NULL, &err_code)))
+			put_open_cl_error(open_cl, "clCreateBuffer error", err_code);
+	}
 	if ((err_code = clSetKernelArg(open_cl->kernel, 0, sizeof(cl_mem),
 	&(open_cl->buf))))
 		put_open_cl_error(open_cl, "clSetKernelArg error", err_code);

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/08 01:52:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 02:22:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void					reset_status(t_status *status);
 t_mlx					*init_mlx(void);
 void					draw(t_global *global);
 void					mlx_hooks(t_global *global);
-void					run(t_global *global);
+void					clean_mlx(t_mlx *mlx);
 
 int						mouse_move(int x, int y, t_global *global);
 int						mouse_key_press(int key, int x, int y,
@@ -171,7 +171,7 @@ int						mouse_key_press(int key, int x, int y,
 int						mouse_key_release(int key, int x, int y,
 						t_global *global);
 int						keyboard_key_press(int key, t_global *global);
-int						close_window(t_open_cl *open_cl);
+int						close_window(t_global *global);
 
 void					get_mouse_position(t_status *status, int x, int y);
 void					control_zoom(t_status *status, int key);
@@ -219,7 +219,10 @@ void					get_open_cl_result(t_open_cl *open_cl, t_mlx *mlx);
 void					clean_open_cl(t_open_cl *open_cl);
 void					clean_open_cl_1(t_open_cl *open_cl);
 void					clean_open_cl_2(t_open_cl *open_cl);
+void					clean_open_cl_info(t_open_cl *open_cl);
 
+void					pfn_notify(const char *errinfo,
+						const void *private_info, size_t cb, void *user_data);
 void					put_error_pn(char *str);
 void					put_open_cl_error(t_open_cl *open_cl, char *str,
 						cl_int err_code);

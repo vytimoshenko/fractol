@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 23:26:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/31 23:24:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 01:41:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_open_cl	*init_open_cl(int device)
 		put_open_cl_error(open_cl, "clGetPlatformIDs error", err_code);
 	get_device(open_cl, device);
 	if (!(open_cl->context = clCreateContext(NULL, 1, &(open_cl->device_id),
-	NULL, NULL, &err_code)))
+	&pfn_notify, NULL, &err_code)))
 		put_open_cl_error(open_cl, "clCreateContext error", err_code);
 	if (!(open_cl->command_queue = clCreateCommandQueue(open_cl->context,
 	open_cl->device_id, 0, &err_code)))
@@ -83,7 +83,6 @@ void		load_open_cl_kernel(t_open_cl *open_cl)
 	(const char **)&(open_cl->source_str),
 	(const size_t *)&(open_cl->source_size), &err_code)))
 		put_open_cl_error(open_cl, "clCreateProgramWithSource error", err_code);
-	free(open_cl->source_str);
 	if ((err_code = clBuildProgram(open_cl->program, 1, &(open_cl->device_id),
 	NULL, NULL, NULL)))
 		put_open_cl_error(open_cl, "clBuildProgram error", err_code);
