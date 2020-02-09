@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 04:00:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 04:13:22 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,8 @@ void					get_open_cl_info(t_open_cl *open_cl);
 void					get_device_info(t_open_cl *open_cl);
 void					get_platform_info(t_open_cl *open_cl);
 
-void					run_open_cl(t_global *global);
+void					run_open_cl(t_status *status, t_open_cl *open_cl,
+						int *res);
 void					set_arg_open_cl_kernel(t_status *status,
 						t_open_cl *open_cl);
 void					pack_arg_to_struct(t_status *status,

@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/09 04:02:51 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/10 00:10:38 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ SRC		= 	fractol_main.c					\
 		
 OBJ		= 	$(SRC:.c=.o)
 
-LIB		=	make -C libft
+MK_LIB	=	make -C libft
+CL_LIB	=	make clean -C libft
+FCL_LIB	=	make fclean -C libft
 
 ADD_ERR =	-Wall -Wextra -Werror
 
@@ -45,17 +47,19 @@ ADD_FMW =	-lmlx -framework OpenGL -framework AppKit\
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			$(LIB)
+			$(MK_LIB)
 			gcc -o $(NAME) $(OBJ) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW)
 
-%.o: %.c
+%.o:		%.c
 			gcc -I $(HDR) $< -c -o $@ $(ADD_ERR) $(ADD_OPT)
 
 clean:
 			@/bin/rm -f $(OBJ)
+			$(CL_LIB)
 
 fclean: 	clean
 			@/bin/rm -f $(NAME)
+			$(FCL_LIB)
 
 re: 		fclean all
 

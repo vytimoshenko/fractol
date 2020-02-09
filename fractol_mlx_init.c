@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 01:40:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 02:32:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 04:15:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_mlx	*init_mlx(void)
 void	draw(t_global *global)
 {
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
-	run_open_cl(global);
+	run_open_cl(global->status, global->open_cl, global->mlx->data);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, 0, 0);
 	if (!(global->status->hide_info))
