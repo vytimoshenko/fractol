@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 02:22:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/09 04:00:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,18 +203,15 @@ void					read_open_cl_kernel(t_open_cl *open_cl);
 void					load_open_cl_kernel(t_open_cl *open_cl);
 
 void					get_open_cl_info(t_open_cl *open_cl);
-void					get_device_info_1(t_open_cl *open_cl);
-void					get_device_info_2(t_open_cl *open_cl);
+void					get_device_info(t_open_cl *open_cl);
 void					get_platform_info(t_open_cl *open_cl);
-void					get_program_build_log(t_open_cl *open_cl);
 
 void					run_open_cl(t_global *global);
 void					set_arg_open_cl_kernel(t_status *status,
 						t_open_cl *open_cl);
 void					pack_arg_to_struct(t_status *status,
 						t_kernel_arg *kernel_arg);
-void					execute_open_cl_kernel(t_open_cl *open_cl);
-void					get_open_cl_result(t_open_cl *open_cl, t_mlx *mlx);
+void					execute_open_cl_kernel(t_open_cl *open_cl, t_mlx *mlx);
 
 void					clean_open_cl(t_open_cl *open_cl);
 void					clean_open_cl_1(t_open_cl *open_cl);
@@ -224,15 +221,6 @@ void					clean_open_cl_info(t_open_cl *open_cl);
 void					pfn_notify(const char *errinfo,
 						const void *private_info, size_t cb, void *user_data);
 void					put_error_pn(char *str);
-void					put_open_cl_error(t_open_cl *open_cl, char *str,
-						cl_int err_code);
-char					*open_cl_error_interpret(cl_int err_code);
-char					*open_cl_error_1(cl_int err_code);
-
-char					*open_cl_error_2(cl_int err_code);
-char					*open_cl_error_3(cl_int err_code);
-char					*open_cl_error_4(cl_int err_code);
-char					*open_cl_error_5(cl_int err_code);
-char					*open_cl_error_6(cl_int err_code);
+void					put_open_cl_error(t_open_cl *open_cl, char *str);
 
 #endif

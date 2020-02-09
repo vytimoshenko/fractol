@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/08 01:48:41 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/09 04:02:51 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ SRC		= 	fractol_main.c					\
 			fractol_open_cl_info.c			\
 			fractol_open_cl_run.c			\
 			fractol_open_cl_clean.c			\
-			fractol_open_cl_err_1.c			\
-			fractol_open_cl_err_2.c			
+			fractol_open_cl_err.c	
 		
 OBJ		= 	$(SRC:.c=.o)
 
