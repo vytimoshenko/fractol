@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 01:45:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 02:43:17 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ void	draw(t_global *global)
 		put_info_to_window(global);
 	end = clock();
 	count_frames(global, start, end);
+}
+
+void	update_info_only(t_global *global)
+{
+	mlx_clear_window(global->mlx->mlx, global->mlx->win);
+	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
+	global->mlx->img, 0, 0);
+	if (!(global->status->hide_info))
+		put_info_to_window(global);
 }
 
 void	put_info_to_window(t_global *global)

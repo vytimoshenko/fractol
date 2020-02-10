@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 01:40:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 02:43:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int		mouse_move(int x, int y, t_global *global)
 	if (global->status->fractal_type == JULIA && !global->status->pause)
 		set_julia(global->status, x, y);
 	control_mouse_shift(global->status, x, y);
-	draw(global);
+	if (global->status->middle_mouse_button)
+		draw(global);
+	else
+		update_info_only(global);
 	return (0);
 }
 
