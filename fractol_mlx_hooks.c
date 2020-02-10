@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 02:26:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:03:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int		keyboard_key_press(int key, t_global *global)
 	if (key == SPACE)
 		global->status->pause = global->status->pause ? 0 : 1;
 	if (key == RETURN)
-		control_type(global->status);
+		control_type(global->status, global->mlx);
 	if (key == C)
 		control_colors(global->status);
 	if (key == H)
 		global->status->hide_info = global->status->hide_info ? 0 : 1;
 	if (key == R)
-		reset_status(global->status);
+		reset_status(global->status, global->mlx);
 	if (key == D)
 		control_device(global);
 	control_iteration(global->status, key);

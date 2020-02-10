@@ -6,19 +6,19 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/05 16:46:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:23:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	control_type(t_status *status)
+void	control_type(t_status *status, t_mlx *mlx)
 {
 	if (status->fractal_type != 5)
 		status->fractal_type++;
 	else
 		status->fractal_type = 1;
-	reset_status(status);
+	reset_status(status, mlx);
 }
 
 void	control_iteration(t_status *status, int key)

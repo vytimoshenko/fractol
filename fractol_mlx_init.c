@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 01:40:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 04:15:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:24:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,37 @@ t_mlx	*init_mlx(void)
 
 void	draw(t_global *global)
 {
+	clock_t	start_frame;
+	clock_t	end_frame;
+	int		frame_clocks;
+
+	frame_clocks = 0;
+	start_frame = clock();
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	run_open_cl(global->status, global->open_cl, global->mlx->data);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, 0, 0);
 	if (!(global->status->hide_info))
 		put_info_to_window(global);
+	++global->mlx->frames;
+	end_frame = clock();
+	frame_clocks += end_frame - start_frame;
+	global->mlx->frame_time = 1000.0 * frame_clocks / CLOCKS_PER_SEC;
+	global->mlx->fps = 1000.0 / global->mlx->frame_time;
+}
+
+void	put_info_to_window(t_global *global)
+{
+	put_status_1(global->mlx);
+	put_status_2(global->status, global->mlx);
+	put_status_3(global->status, global->mlx);
+	put_status_4(global->status, global->mlx);
+	put_status_5(global->status, global->mlx);
+	put_open_cl_info(global->open_cl, global->mlx);
+	put_render_info_1(global->mlx);
+	put_render_info_2(global->mlx);
+	put_control_keys_1(global->status, global->mlx);
+	put_control_keys_2(global->mlx);
 }
 
 void	mlx_hooks(t_global *global)

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 04:13:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:31:16 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "./libft/libft.h"
 # include "mlx.h"
 # include <OpenCL/opencl.h>
+# include <time.h>
 
 # define PROGRAM_NAME			"fractol"
 
@@ -72,6 +73,10 @@ typedef struct			s_mlx
 	int					bits_per_pixel;
 	int					size_line;
 	int					endian;
+
+	int					frames;
+	float				fps;
+	float				frame_time;
 }						t_mlx;
 
 typedef struct			s_open_cl
@@ -158,10 +163,11 @@ int						main(int argc, char **argv);
 t_status				*init_status(int argc, char **argv);
 void					check_argument(t_status *status, char *arg);
 void					error_wrong_argument(void);
-void					reset_status(t_status *status);
+void					reset_status(t_status *status, t_mlx *mlx);
 
 t_mlx					*init_mlx(void);
 void					draw(t_global *global);
+void					put_info_to_window(t_global *global);
 void					mlx_hooks(t_global *global);
 void					clean_mlx(t_mlx *mlx);
 
@@ -180,22 +186,23 @@ void					control_mouse_zoom(t_status *status, int x, int y,
 void					control_shift(t_status *status, int key);
 void					control_mouse_shift(t_status *status, int x, int y);
 
-void					control_type(t_status *status);
+void					control_type(t_status *status, t_mlx *mlx);
 void					control_iteration(t_status *status, int key);
 void					control_colors(t_status *status);
 void					control_device(t_global *global);
 void					set_julia(t_status *status, int x, int y);
-
-void					put_info_to_window(t_global *global);
-void					put_control_keys_1(t_status *status, t_mlx *mlx);
-void					put_control_keys_2(t_mlx *mlx);
-void					put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx);
 
 void					put_status_1(t_mlx *mlx);
 void					put_status_2(t_status *status, t_mlx *mlx);
 void					put_status_3(t_status *status, t_mlx *mlx);
 void					put_status_4(t_status *status, t_mlx *mlx);
 void					put_status_5(t_status *status, t_mlx *mlx);
+
+void					put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx);
+void					put_render_info_1(t_mlx *mlx);
+void					put_render_info_2(t_mlx *mlx);
+void					put_control_keys_1(t_status *status, t_mlx *mlx);
+void					put_control_keys_2(t_mlx *mlx);
 
 t_open_cl				*init_open_cl(int device);
 void					get_device(t_open_cl *open_cl, int device);
