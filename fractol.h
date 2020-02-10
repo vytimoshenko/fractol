@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 00:31:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 02:02:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 # define PROGRAM_NAME			"fractol"
 
-# define WIN_SIZE_X 			2560
-# define WIN_SIZE_Y				1400
-# define IMG_SIZE_X				2560
-# define IMG_SIZE_Y				1400
+# define WIN_SIZE_W 			2560
+# define WIN_SIZE_H				1400
+# define IMG_SIZE_W				2560
+# define IMG_SIZE_H				1400
 
 # define TEXT_COLOR  			0xFFFFFF
 # define BACK_COLOR  			0x555555
@@ -163,13 +163,16 @@ int						main(int argc, char **argv);
 t_status				*init_status(int argc, char **argv);
 void					check_argument(t_status *status, char *arg);
 void					error_wrong_argument(void);
-void					reset_status(t_status *status, t_mlx *mlx);
+void					reset_status(t_status *status);
 
 t_mlx					*init_mlx(void);
+void					reset_render_status(t_mlx *mlx);
+void					clean_mlx(t_mlx *mlx);
+
+void					count_frames(t_global *global, clock_t start, clock_t end);
 void					draw(t_global *global);
 void					put_info_to_window(t_global *global);
 void					mlx_hooks(t_global *global);
-void					clean_mlx(t_mlx *mlx);
 
 int						mouse_move(int x, int y, t_global *global);
 int						mouse_key_press(int key, int x, int y,

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/10 23:50:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 02:02:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_status	*init_status(int argc, char **argv)
 	if (!(status = (t_status *)ft_memalloc(sizeof(t_status))))
 		ft_put_errno(PROGRAM_NAME);
 	check_argument(status, argv[1]);
-	reset_status(status, NULL);
+	reset_status(status);
 	return (status);
 }
 
@@ -52,14 +52,8 @@ void		error_wrong_argument(void)
 	exit(1);
 }
 
-void		reset_status(t_status *status, t_mlx *mlx)
+void		reset_status(t_status *status)
 {
-	if (mlx)
-	{
-		mlx->frames = 0;
-		mlx->fps = 0;
-		mlx->frame_time = 0;
-	}
 	status->color_theme = 0;
 	status->iter = 100;
 	status->zoom = 300;
@@ -67,7 +61,7 @@ void		reset_status(t_status *status, t_mlx *mlx)
 	status->y_shift = 0;
 	status->x_julia = -0.7018;
 	status->y_julia = -0.3842;
-	status->x_center = (double)IMG_SIZE_X / 2;
-	status->y_center = (double)IMG_SIZE_Y / 2;
+	status->x_center = (double)IMG_SIZE_W / 2;
+	status->y_center = (double)IMG_SIZE_H / 2;
 	status->pause = 1;
 }

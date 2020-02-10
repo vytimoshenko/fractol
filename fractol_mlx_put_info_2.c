@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 00:46:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 02:03:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx)
 	int		pos_y;
 	char	*str;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 390;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"DEVICE");
@@ -44,22 +44,22 @@ void	put_render_info_1(t_mlx *mlx)
 	int		pos_y;
 	char	*str;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 580;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"RENDER");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Resolition:            x      pixels");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 30, TEXT_COLOR,
-	str = ft_itoa(IMG_SIZE_X));
+	str = ft_itoa(IMG_SIZE_W));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 250, pos_y + 30, TEXT_COLOR,
-	str = ft_itoa(IMG_SIZE_Y));
+	str = ft_itoa(IMG_SIZE_H));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
 	"Pixels total:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 50, TEXT_COLOR,
-	str = ft_itoa(IMG_SIZE_X * IMG_SIZE_Y));
+	str = ft_itoa(IMG_SIZE_W * IMG_SIZE_H));
 	free(str);
 }
 
@@ -69,7 +69,7 @@ void	put_render_info_2(t_mlx *mlx)
 	int		pos_y;
 	char	*str;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 580;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
 	"Frames:");
@@ -93,7 +93,7 @@ void	put_control_keys_1(t_status *status, t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 800;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"CONTROL");
@@ -120,7 +120,7 @@ void	put_control_keys_2(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 800;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 190, TEXT_COLOR,
 	"Iterations:       </>");

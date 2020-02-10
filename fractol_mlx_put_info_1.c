@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 00:24:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 02:01:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	put_status_1(t_mlx *mlx)
 	int		pos_x;
 	int		pos_y;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 70;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"STATUS");
@@ -40,7 +40,7 @@ void	put_status_2(t_status *status, t_mlx *mlx)
 	int		pos_x;
 	int		pos_y;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 70;
 	if (status->fractal_type == MANDELBROT)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 30, TEXT_COLOR,
@@ -65,7 +65,7 @@ void	put_status_3(t_status *status, t_mlx *mlx)
 	int		pos_y;
 	char	*str;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 70;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 140, TEXT_COLOR,
 	"Iterations:");
@@ -93,7 +93,7 @@ void	put_status_4(t_status *status, t_mlx *mlx)
 	int		pos_x;
 	int		pos_y;
 
-	pos_x = WIN_SIZE_X - 440;
+	pos_x = WIN_SIZE_W - 440;
 	pos_y = 70;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 200, TEXT_COLOR,
 	"Device:");
@@ -112,7 +112,7 @@ void	put_status_5(t_status *status, t_mlx *mlx)
 	char	*str;
 
 	pos_x = 20;
-	pos_y = WIN_SIZE_Y - 40;
+	pos_y = WIN_SIZE_H - 40;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR, "X:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 20, pos_y, TEXT_COLOR,
 	str = ft_itoa(status->x_mouse_position));
