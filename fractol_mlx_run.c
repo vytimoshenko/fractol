@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 03:01:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 05:13:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	mlx_hooks(t_global *global)
 
 void	draw(t_global *global)
 {
-	clock_t	start;
-	clock_t	end;
+	struct timeval	start;
+	struct timeval	end;
 
-	start = clock();
+	gettimeofday(&start, NULL);
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	run_open_cl(global->status, global->open_cl, global->mlx->data);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, 0, 0);
 	if (!(global->status->hide_info))
 		put_info_to_window(global);
-	end = clock();
+	gettimeofday(&end, NULL);
 	count_frames(global, start, end);
 }
 
@@ -62,13 +62,10 @@ void	put_info_to_window(t_global *global)
 	put_control_keys_2(global->mlx);
 }
 
-void	count_frames(t_global *global, clock_t start, clock_t end)
+void	count_frames(t_global *global, struct timeval start, struct timeval end)
 {
-	int		frame_clocks;
-
-	frame_clocks = 0;
 	++global->mlx->frames;
-	frame_clocks += end - start;
-	global->mlx->frame_time = 1000.0 * frame_clocks / CLOCKS_PER_SEC;
-	global->mlx->fps = 1000.0 / global->mlx->frame_time;
+	global->mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
+	(double)(end.tv_sec - start.tv_sec) * 1000;
+	global->mlx->fps = 1000 / global->mlx->frame_time;
 }

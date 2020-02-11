@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 02:01:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 03:15:10 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	control_type(t_status *status, t_mlx *mlx)
 
 void	control_iteration(t_status *status, int key)
 {
-	if (key == CHEVRON_RIGHT && status->iter)
+	if (key == MORE && status->iter)
 		status->iter += 10;
-	else if (key == CHEVRON_LEFT && status->iter > 10)
+	else if (key == LESS && status->iter > 10)
 		status->iter -= 10;
 }
 

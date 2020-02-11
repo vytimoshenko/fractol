@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 01:40:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 02:03:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 05:13:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_mlx	*init_mlx(void)
 	return (mlx);
 }
 
-void		reset_render_status(t_mlx *mlx)
+void	reset_render_status(t_mlx *mlx)
 {
 	mlx->frames = 0;
 	mlx->fps = 0;

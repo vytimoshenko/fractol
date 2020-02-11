@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 02:43:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 04:35:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 {
 	if (key == MIDDLE_MOUSE_BUTTON)
 		global->status->middle_mouse_button = 1;
-	if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
+	else if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
 		control_mouse_zoom(global->status, x, y, key);
+	else
+		return (0);
 	draw(global);
 	return (0);
 }
@@ -41,7 +43,6 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 	(void)y;
 	if (key == MIDDLE_MOUSE_BUTTON)
 		global->status->middle_mouse_button = 0;
-	draw(global);
 	return (0);
 }
 
@@ -49,24 +50,30 @@ int		keyboard_key_press(int key, t_global *global)
 {
 	if (key == ESC)
 		close_window(global);
-	if (key == SPACE)
+	else if (key == SPACE)
 		global->status->pause = global->status->pause ? 0 : 1;
-	if (key == RETURN)
+	else if (key == RETURN)
 		control_type(global->status, global->mlx);
-	if (key == C)
+	else if (key == C)
 		control_colors(global->status);
-	if (key == H)
+	else if (key == H)
 		global->status->hide_info = global->status->hide_info ? 0 : 1;
-	if (key == R)
+	else if (key == R)
 	{
 		reset_status(global->status);
 		reset_render_status(global->mlx);
 	}
-	if (key == D)
+	else if (key == D)
 		control_device(global);
-	control_iteration(global->status, key);
-	control_zoom(global->status, key);
-	control_shift(global->status, key);
+	else if (key == LESS || key == MORE)
+		control_iteration(global->status, key);
+	else if (key == MINUS || key == PLUS)
+		control_zoom(global->status, key);
+	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
+	|| key == ARROW_UP)
+		control_shift(global->status, key);
+	else
+		return (0);
 	draw(global);
 	return (0);
 }

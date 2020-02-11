@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 03:01:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 05:11:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "./libft/libft.h"
 # include "mlx.h"
 # include <OpenCL/opencl.h>
-# include <time.h>
+# include <sys/time.h>
 
 # define PROGRAM_NAME			"fractol"
 
@@ -51,13 +51,13 @@
 # define H						4
 # define C						8
 # define R						15
+# define PLUS					24
+# define MINUS					27
 # define RETURN					36
-# define CHEVRON_LEFT			43
-# define CHEVRON_RIGHT			47
+# define LESS					43
+# define MORE					47
 # define SPACE					49
 # define ESC					53
-# define PLUS					69
-# define MINUS					78
 # define ARROW_LEFT				123
 # define ARROW_RIGHT			124
 # define ARROW_DOWN				125
@@ -102,6 +102,8 @@ typedef struct			s_open_cl
 	size_t				local_work_size;
 
 	cl_mem				buf;
+
+	int					execution_time;
 }						t_open_cl;
 
 typedef struct			s_status
@@ -169,8 +171,8 @@ t_mlx					*init_mlx(void);
 void					reset_render_status(t_mlx *mlx);
 void					clean_mlx(t_mlx *mlx);
 
-void					count_frames(t_global *global, clock_t start,
-						clock_t end);
+void					count_frames(t_global *global, struct timeval start,
+						struct timeval end);
 void					draw(t_global *global);
 void					update_info_only(t_global *global);
 void					put_info_to_window(t_global *global);
@@ -225,6 +227,7 @@ void					set_arg_open_cl_kernel(t_status *status,
 void					pack_arg_to_struct(t_status *status,
 						t_kernel_arg *kernel_arg);
 void					execute_open_cl_kernel(t_open_cl *open_cl, t_mlx *mlx);
+void					get_execution_time(t_open_cl *open_cl, cl_event event);
 
 void					clean_open_cl(t_open_cl *open_cl);
 void					clean_open_cl_1(t_open_cl *open_cl);
