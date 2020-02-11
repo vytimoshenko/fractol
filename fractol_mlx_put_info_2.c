@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 04:35:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 05:19:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y + 80, TEXT_COLOR,
 	open_cl->driver_ver);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 110, TEXT_COLOR,
-	"Execution time:        ms");
+	"Execution time:       ms");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 110, TEXT_COLOR,
 	str = ft_itoa(open_cl->execution_time));
 	free(str);
