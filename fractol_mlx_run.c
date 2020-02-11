@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 05:13:01 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 22:20:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw(t_global *global)
 	if (!(global->status->hide_info))
 		put_info_to_window(global);
 	gettimeofday(&end, NULL);
-	count_frames(global, start, end);
+	count_frames(global->mlx, start, end);
 }
 
 void	update_info_only(t_global *global)
@@ -62,10 +62,10 @@ void	put_info_to_window(t_global *global)
 	put_control_keys_2(global->mlx);
 }
 
-void	count_frames(t_global *global, struct timeval start, struct timeval end)
+void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
 {
-	++global->mlx->frames;
-	global->mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
+	++mlx->frames;
+	mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
 	(double)(end.tv_sec - start.tv_sec) * 1000;
-	global->mlx->fps = 1000 / global->mlx->frame_time;
+	mlx->fps = 1000 / mlx->frame_time;
 }
