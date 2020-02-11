@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 02:43:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 03:01:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	draw(t_global *global)
 {
 	clock_t	start;
 	clock_t	end;
-	
+
 	start = clock();
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	run_open_cl(global->status, global->open_cl, global->mlx->data);

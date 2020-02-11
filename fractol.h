@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 02:43:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/11 03:01:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,8 @@ t_mlx					*init_mlx(void);
 void					reset_render_status(t_mlx *mlx);
 void					clean_mlx(t_mlx *mlx);
 
-void					count_frames(t_global *global, clock_t start, clock_t end);
+void					count_frames(t_global *global, clock_t start,
+						clock_t end);
 void					draw(t_global *global);
 void					update_info_only(t_global *global);
 void					put_info_to_window(t_global *global);
