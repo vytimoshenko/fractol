@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/09 02:09:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:09:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int	main(int argc, char **argv)
 	global.status = init_status(argc, argv);
 	global.mlx = init_mlx();
 	global.open_cl = init_open_cl(global.status->device);
-	mlx_hooks(&global);
+	loop(&global);
 	exit(0);
 }

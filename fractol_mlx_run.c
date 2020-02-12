@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/11 22:20:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:09:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mlx_hooks(t_global *global)
+void	loop(t_global *global)
 {
 	draw(global);
 	mlx_hook(global->mlx->win, 2, 0, keyboard_key_press, global);
