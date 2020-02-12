@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/12 18:09:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:27:21 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void					reset_status(t_status *status);
 t_mlx					*init_mlx(void);
 void					reset_render_status(t_mlx *mlx);
 void					clean_mlx(t_mlx *mlx);
+void					put_mlx_error(t_mlx *mlx, char *str);
 
 void					loop(t_global *global);
 void					draw(t_global *global);
