@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/12 19:27:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:56:26 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define FRACTOL_H
 
 # include "./libft/libft.h"
-# include "mlx.h"
+# include "./mlx/mlx.h"
 # include <OpenCL/opencl.h>
 # include <sys/time.h>
 
